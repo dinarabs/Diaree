@@ -1,13 +1,22 @@
 'use strict'
 
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
-const cloudinary = require('cloudinary').v2
-require('dotenv').config()
+import { Request, Response } from 'express'
+import dotenv from 'dotenv'
 
-const Diary = require('../models/diary')
+dotenv.config()
 
-async function getAllDiaryEntries(req, res) {
+import Diary from '../models/diary'
+import { v2 as cloudinary } from 'cloudinary'
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
+
+
+// GET 
+async function getAllDiaryEntries(req: Request, res: Response) {
   try {
     const allDiaryEntries = await Diary.find()
     res.status(200).json(allDiaryEntries)
@@ -17,7 +26,8 @@ async function getAllDiaryEntries(req, res) {
   }
 }
 
-async function getRecentDiaryEntries(req, res) {
+// GET recent entry
+async function getRecentDiaryEntries(req: Request, res: Response) {
   try {
     const recentDiaryEntries = await Diary.find({}).sort({ date: -1 }).limit(3)
 
@@ -28,7 +38,8 @@ async function getRecentDiaryEntries(req, res) {
   }
 }
 
-async function getOneDiaryEntry(req, res) {
+// GET one entry
+async function getOneDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
     const oneDiaryEntry = await Diary.findById(id)
@@ -44,7 +55,8 @@ async function getOneDiaryEntry(req, res) {
   }
 }
 
-async function getDiaryEntryByDate(req, res) {
+// GET by date
+async function getDiaryEntryByDate(req: Request, res: Response) {
   try {
     const { date } = req.params
     const foundDiaryEntry = await Diary.findOne({ date }).exec()
@@ -62,7 +74,8 @@ async function getDiaryEntryByDate(req, res) {
   }
 }
 
-async function addDiaryEntry(req, res) {
+// POST one entry
+async function addDiaryEntry(req: Request, res: Response) {
   try {
     const { title, text, date, imageUrl, tags } = req.body
 
@@ -81,13 +94,9 @@ async function addDiaryEntry(req, res) {
   }
 }
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
 
-async function uploadImage(req, res) {
+// IMAGE UPLOAD
+async function uploadImage(req: Request, res: Response) {
   try {
     console.log('Received image upload request')
 
@@ -113,7 +122,8 @@ async function uploadImage(req, res) {
   }
 }
 
-async function editDiaryEntry(req, res) {
+// UPDATE
+async function editDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
     const { title, text, date, imageUrl, tags } = req.body // Include tags
@@ -143,7 +153,9 @@ async function editDiaryEntry(req, res) {
   }
 }
 
-async function deleteDiaryEntry(req, res) {
+
+// DELETE
+async function deleteDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
     const deletedEntry = await Diary.findByIdAndDelete(id)
@@ -159,7 +171,8 @@ async function deleteDiaryEntry(req, res) {
   }
 }
 
-module.exports = {
+
+export {
   getAllDiaryEntries,
   getRecentDiaryEntries,
   getOneDiaryEntry,
@@ -167,5 +180,5 @@ module.exports = {
   addDiaryEntry,
   uploadImage,
   editDiaryEntry,
-  deleteDiaryEntry,
+  deleteDiaryEntry
 }
