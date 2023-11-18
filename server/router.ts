@@ -2,6 +2,9 @@ import Router from 'express'
 import multer from 'multer'
 
 const router = Router()
+
+import { addTag, deleteTag, getAllTags } from './controllers/tagController'
+
 const upload = multer({ dest: 'uploads/' })
 
 const {
@@ -14,8 +17,6 @@ const {
   editDiaryEntry,
   deleteDiaryEntry,
 } = require('./controllers/diaryController')
-
-import { addTag, deleteTag, getAllTags } from './controllers/tagController'
 
 // get/post -> /movements getbyID -> /movements/:id
 router.get('/all', getAllDiaryEntries) //-> /diary/all

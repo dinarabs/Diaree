@@ -1,4 +1,4 @@
-import mongoose, { model } from 'mongoose'
+import mongoose from 'mongoose'
 // 1. Create an interface representing a document in MongoDB.
 interface ITag {
   name: string
@@ -8,12 +8,12 @@ interface ITag {
 const tagSchema = new mongoose.Schema<ITag>({
   name: {
     type: String,
-    required: false,
+    required: true,
     unique: true,
   },
 })
 
 // 3. Create a Model.
-const Tag = model<ITag>('Tag', tagSchema)
+const Tag = mongoose.model<ITag>('Tag', tagSchema)
 
 export default Tag

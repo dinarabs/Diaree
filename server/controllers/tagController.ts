@@ -14,7 +14,7 @@ async function getAllTags(req: Request, res: Response) {
 async function addTag(req: Request, res: Response) {
   try {
     const { name } = req.body
-    const newTag = await Tag.create(name)
+    const newTag = await Tag.create({ name: name })
     res.status(201).json(newTag)
   } catch (error) {
     console.error(error)

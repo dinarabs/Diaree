@@ -2,6 +2,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Express } from 'express'
+import connectToDatabase from './models/db'
 import router from './router'
 
 dotenv.config()
@@ -19,6 +20,8 @@ cloudinary.config({
 app.use(cors())
 app.use(express.json())
 app.use(router)
+
+connectToDatabase()
 
 app.listen(PORT, () => {
   console.log(`⚡️Server running @ http://${HOST}:${PORT}⚡️`)
