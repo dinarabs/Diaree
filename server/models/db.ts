@@ -1,9 +1,15 @@
-import mongoose from "mongoose"
+'use strict'
 
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/diary")
-  console.log("Connected to db ✅")
+import mongoose from 'mongoose'
+const DB_URI = 'mongodb://localhost:27017/diary'
+
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(DB_URI)
+    console.log(`📚 Database is successfully connected @ ${DB_URI}!`)
+  } catch (error) {
+    console.error('🐞Database connection error:', error)
+  }
 }
 
-
-export default main
+export default connectToDatabase
