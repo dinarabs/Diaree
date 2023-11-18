@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const diarySchema = new mongoose.Schema({
   title: {
@@ -14,10 +14,10 @@ const diarySchema = new mongoose.Schema({
     required: true,
     set: (value) => {
       if (value instanceof Date) {
-        value.setHours(0, 0, 0, 0);
-        return value;
+        value.setHours(0, 0, 0, 0)
+        return value
       }
-      return value;
+      return value
     },
   },
   createdAt: {
@@ -33,13 +33,13 @@ const diarySchema = new mongoose.Schema({
       type: String,
     },
   ],
-});
+})
 
-diarySchema.pre("save", function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
+diarySchema.pre('save', function (next) {
+  this.updatedAt = Date.now()
+  next()
+})
 
-const Diary = mongoose.model("Diary", diarySchema);
+const Diary = mongoose.model('Diary', diarySchema)
 
-module.exports = Diary;
+module.exports = Diary
