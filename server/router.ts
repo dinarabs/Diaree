@@ -5,10 +5,10 @@ const router = Router()
 const upload = multer({ dest: "uploads/" })
 
 import {
-  getRecentDiaryEntries,
-  getAllDiaryEntries,
+  getDiaryEntriesAsc,
+  getDiaryEntriesDesc,
   getOneDiaryEntry,
-  getDiaryEntryByDate,
+  getDiaryEntriesByDate,
   addDiaryEntry,
   uploadImage,
   editDiaryEntry,
@@ -21,15 +21,15 @@ import {
   deleteTag,
 } from "./controllers/tagController"
 
-router.get("/diary/all", getAllDiaryEntries)
-router.get("/diary/recent", getRecentDiaryEntries)
-router.get("/diary/:id", getOneDiaryEntry)
-router.post("/diary/add", addDiaryEntry)
+router.get("/entries/ascending", getDiaryEntriesAsc) 
+router.get("/entries/descending", getDiaryEntriesDesc)
+router.get("/entries/:id", getOneDiaryEntry)
+router.post("/entries/add", addDiaryEntry)
 
-router.get("/diary/date/:date", getDiaryEntryByDate)
-router.post("/diary/upload-image", upload.single("image"), uploadImage)
-router.put("/diary/edit/:id", editDiaryEntry)
-router.delete("/diary/delete/:id", deleteDiaryEntry)
+router.get("/entries/date/:date", getDiaryEntriesByDate)
+router.post("/entries/upload-image", upload.single("image"), uploadImage)
+router.put("/entries/edit/:id", editDiaryEntry)
+router.delete("/entries/delete/:id", deleteDiaryEntry)
 
 
 router.get("/tags", getAllTags)
