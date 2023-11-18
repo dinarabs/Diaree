@@ -1,41 +1,56 @@
 'use strict'
 
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
-const cloudinary = require('cloudinary').v2
-require('dotenv').config()
+import { Request, Response } from 'express'
+import dotenv from 'dotenv'
 
-const Diary = require('../models/diary')
+dotenv.config()
 
-async function getAllDiaryEntries(req, res) {
+import Diary from '../models/diary'
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
+
+
+// GET 
+async function getDiaryEntriesAsc(req: Request, res: Response) {
   try {
-    const allDiaryEntries = await Diary.find()
-    res.status(200).json(allDiaryEntries)
+    const ascendingDiaryEntries = await Diary.find()
+    if (ascendingDiaryEntries.length === 0) {
+      return res.status(200).json({ message: 'No Diary entries found' })
+    } 
+    res.status(200).json(ascendingDiaryEntries)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
 
-async function getRecentDiaryEntries(req, res) {
+// GET recent entry
+async function getDiaryEntriesDesc(req: Request, res: Response) {
   try {
-    const recentDiaryEntries = await Diary.find({}).sort({ date: -1 }).limit(3)
+    const descendingDiaryEntries = await Diary.find({}).sort({ createdAt: -1 }).limit(3)
 
-    res.status(200).json(recentDiaryEntries)
+    res.status(200).json(descendingDiaryEntries)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
 
-async function getOneDiaryEntry(req, res) {
+// GET one entry
+async function getOneDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
     const oneDiaryEntry = await Diary.findById(id)
 
     if (!oneDiaryEntry) {
       return res.status(404).json({ message: 'Diary entry not found' })
-    }
+    } 
 
     res.status(200).json(oneDiaryEntry)
   } catch (error) {
@@ -44,32 +59,50 @@ async function getOneDiaryEntry(req, res) {
   }
 }
 
-async function getDiaryEntryByDate(req, res) {
+// GET by date
+async function getDiaryEntriesByDate(req: Request, res: Response) {
   try {
-    const { date } = req.params
-    const foundDiaryEntry = await Diary.findOne({ date }).exec()
+    const { date } = req.params;
 
-    if (!foundDiaryEntry) {
+    // Set the start and end of the day for the target date
+    const startDate = new Date(date);
+    startDate.setUTCHours(0, 0, 0, 0);
+
+    const nextDate = new Date(startDate);
+    nextDate.setDate(startDate.getDate() + 1);
+
+    const entriesByDate = await Diary.find({
+      createdAt: {
+        $gte: startDate.toISOString(),
+        $lt: nextDate.toISOString(),
+      },
+    }).exec();
+
+    if (!entriesByDate || entriesByDate.length === 0) {
       return res
         .status(404)
-        .json({ message: 'No diary entry found for the date' })
+        .json({ message: 'No diary entry found for the date' });
     }
 
-    res.status(200).json(foundDiaryEntry)
+    res.status(200).json(entriesByDate);
   } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Internal server error' })
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
-async function addDiaryEntry(req, res) {
+// POST one entry
+async function addDiaryEntry(req: Request, res: Response) {
   try {
-    const { title, text, date, imageUrl, tags } = req.body
+    const { 
+      title, 
+      text, 
+      imageUrl, 
+      tags } = req.body
 
     const diaryEntryToAdd = await Diary.create({
       title,
       text,
-      date,
       imageUrl,
       tags,
     })
@@ -81,13 +114,9 @@ async function addDiaryEntry(req, res) {
   }
 }
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
 
-async function uploadImage(req, res) {
+// IMAGE UPLOAD
+async function uploadImage(req: Request, res: Response) {
   try {
     console.log('Received image upload request')
 
@@ -113,17 +142,21 @@ async function uploadImage(req, res) {
   }
 }
 
-async function editDiaryEntry(req, res) {
+// UPDATE
+async function editDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
-    const { title, text, date, imageUrl, tags } = req.body // Include tags
+    const { 
+      title, 
+      text, 
+      imageUrl, 
+      tags } = req.body 
 
     const updatedDiaryEntry = await Diary.findByIdAndUpdate(
       id,
       {
         title,
         text,
-        date,
         imageUrl,
         tags,
       },
@@ -143,7 +176,9 @@ async function editDiaryEntry(req, res) {
   }
 }
 
-async function deleteDiaryEntry(req, res) {
+
+// DELETE
+async function deleteDiaryEntry(req: Request, res: Response) {
   try {
     const { id } = req.params
     const deletedEntry = await Diary.findByIdAndDelete(id)
@@ -159,13 +194,14 @@ async function deleteDiaryEntry(req, res) {
   }
 }
 
-module.exports = {
-  getAllDiaryEntries,
-  getRecentDiaryEntries,
+
+export {
+  getDiaryEntriesAsc,
+  getDiaryEntriesDesc,
   getOneDiaryEntry,
-  getDiaryEntryByDate,
+  getDiaryEntriesByDate,
   addDiaryEntry,
   uploadImage,
   editDiaryEntry,
-  deleteDiaryEntry,
+  deleteDiaryEntry
 }
