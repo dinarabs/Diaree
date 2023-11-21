@@ -6,6 +6,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        // TODO: Add comprenhensive color structure (primary & secondary). Example below
+        // primary: '#ff3366',
+        // secondary: {
+        //   100: '#f0f0f0',
+        //   200: '#d9d9d9',
+        //   300: '#b3b3b3',
         // Add your custom colors here
         'dark-blue': '#0C2D42',
         'blue': '#178BC8',
@@ -13,15 +19,11 @@ export default {
         'grey': '#9E9C98',
         'light-grey':'#EEEEEE',
         'light-fucsia':'#AD62D1',
-        // primary: '#ff3366',
-        // secondary: {
-        //   100: '#f0f0f0',
-        //   200: '#d9d9d9',
-        //   300: '#b3b3b3',
-          // Add more shades as needed
         },
     },
   },
-  plugins: [],
+  plugins: [
+    import('@tailwindcss/forms'),
+  ],
 }
 
