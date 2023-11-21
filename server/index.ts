@@ -1,17 +1,10 @@
-
-import express, { Express } from 'express'
-import cors from 'cors'
-import router from './router'
 import connectToDatabase from './models/db'
+import { createServer } from './server'
 
-const app: Express = express()
 const PORT = process.env.PORT || 3000
 const HOST = 'localhost'
 
-
-app.use(cors())
-app.use(express.json())
-app.use(router)
+const app = createServer()
 
 connectToDatabase()
 
