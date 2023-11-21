@@ -1,18 +1,23 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import Register from '../pages/Register'
+import Login from '../pages/Login'
 import Home from '../pages/Home'
-import EntryForm from '../pages/EntryForm'
+import CreateEntryForm from '../pages/CreateEntryForm'
 import NotFound from '../pages/NotFound'
+import Entry from '../components/Entry'
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
       <Routes>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/login' element={<Login/>}/>
+
           <Route path='/home' element={<Home/>}/>
-          <Route path='/form' element={<EntryForm/>}/>
+          <Route path='/form' element={<CreateEntryForm/>}/>
+          <Route path='/entry' element={<Entry/>}/>
+
           <Route path='*' element={<NotFound/>}/>
-    
       </Routes>
-    </BrowserRouter>
   )
 }
 
