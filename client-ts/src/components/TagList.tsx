@@ -1,25 +1,33 @@
+import { FC } from 'react'
 import { Tag } from '../services/tagService'
 
-interface TagListProps {
+type TagListProps = {
+  selectedTag: string
+  setSelectedTag: (tagName: string) => void
   tags: Tag[]
 }
-const TagList = (props: TagListProps) => {
-  // TODO implement handleClick
+const TagList: FC<TagListProps> = ({ selectedTag, setSelectedTag, tags }) => {
   const handleClick = (tagName: string) => {
-    console.log('clicked', tagName)
+    if (selectedTag === tagName) {
+      setSelectedTag('')
+    } else {
+      setSelectedTag(tagName)
+    }
   }
 
   return (
     <>
-      {props.tags.map((tag, index) => (
-        <div
-          key={index}
-          className="button-effect flex items-center justify-center bg-light-fucsia opacity-75 text-xl px-4 h-10 w-3/12 rounded-full shadow-sm text-white"
-          onClick={() => handleClick(tag.name)}
-        >
-          {tag.name}
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-2">
+        {tags.map((tag, index) => (
+          <div
+            key={index}
+            className={`button-effect flex flex-wrap items-center justify-center bg-light-fucsia opacity-75 text-md px-4 h-10 rounded-full shadow-md text-white`}
+            onClick={() => handleClick(tag.name)}
+          >
+            {tag.name}
+          </div>
+        ))}
+      </div>
     </>
   )
 }

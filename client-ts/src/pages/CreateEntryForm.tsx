@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { Entry, postEntry, uploadImage } from '../services/entriesService'
+import {
+  EntryInterface,
+  postEntry,
+  uploadImage,
+} from '../services/entriesService'
 // import TagsInput from 'react-tagsinput';
 import UploadImage from '../components/UploadImage'
 
-const EntryForm = ({ formData, setFormData }) => {
+const EntryForm = () => {
   const navigate = useNavigate() // Initialize the usenavigate hook
   const [isUploading, setIsUploading] = useState<boolean>(false)
-  const [newEntryBla, setNewEntryBla] = useState({
+  const [newEntryBla, setNewEntryBla] = useState<EntryInterface>({
     _id: '',
     title: '',
     text: '',
@@ -17,23 +21,21 @@ const EntryForm = ({ formData, setFormData }) => {
     createdAt: new Date(),
   })
   const [textAreaRows, setTextAreaRows] = useState<number>(5)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleFileSelected = async (file: File) => {
-setIsUploading(true)
-    // setSelectedFile(file)
-    console.log('I am here')
-    console.log(file)
-    await uploadImage(file).then((data) => {
-      console.log(data, 'I am here with DATA')
-      console.log(data)
+    setIsUploading(true)
 
-      setNewEntryBla((prevData) => ({
-        ...prevData,
-        imageUrl: data.imageUrl,
-      }))
-      
-    }).finally(()=> setIsUploading(false))
+    await uploadImage(file)
+      .then((data) => {
+        console.log(data, 'I am here with DATA')
+        console.log(data)
+
+        setNewEntryBla((prevData) => ({
+          ...prevData,
+          imageUrl: data.imageUrl,
+        }))
+      })
+      .finally(() => setIsUploading(false))
   }
 
   const handleInputChange = (
@@ -60,16 +62,6 @@ setIsUploading(true)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    // try {
-
-    // if (selectedFile) {
-
-    // console.log('imageUrl', imageUrl.imageUrl, typeof imageUrl.imageUrl)
-
-    // Update the form data with the imageUrl
-
-    // Call your postEntry function with the updated formData
     const response = await postEntry(newEntryBla)
     console.log('Entry added successfully:', response)
 
@@ -150,7 +142,7 @@ setIsUploading(true)
 
           <div className="mt-4 flex items-center justify-center gap-x-2">
             <button
-            disabled={isUploading}
+              disabled={isUploading}
               type="submit"
               className="px-16 bg-blue shadow-md rounded h-12 text-xl text-center text-white"
             >

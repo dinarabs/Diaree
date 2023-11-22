@@ -1,6 +1,6 @@
 const url = 'http://localhost:3000'
 
-export type EntryInterface = {
+export interface EntryInterface {
   _id: string
   title: string
   text: string
@@ -9,35 +9,32 @@ export type EntryInterface = {
   createdAt: Date
 }
 
-const getEntries = async (): Promise<EntryInterface[]> => {
+const getEntriesDesc = async (): Promise<EntryInterface[]> => {
   try {
-    const data = await fetch(`${url}/entries/asc`)
+    const data = await fetch(`${url}/entries/desc`)
     const res: EntryInterface[] = await data.json()
     return res
   } catch (error) {
-    console.log('Error fetching data from getEntries:', error)
+    console.log('Error fetching data from getEntriesDesc:', error)
     throw error
   }
 }
 
-
 const deleteEntry = async (entryId: string): Promise<void> => {
   try {
     const data = await fetch(`${url}/entries/delete/${entryId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
-    console.log({deleteEntry: data})
+    console.log({ deleteEntry: data })
 
-    if (!data.ok){
+    if (!data.ok) {
       throw new Error(`Request failed with status ${data.status}`)
     }
-    
   } catch (error) {
     console.log('Error fetching data from deleteEntry:', error)
     throw error
   }
 }
-
 
 const postEntry = async (newEntry: EntryInterface): Promise<EntryInterface> => {
   try {
@@ -45,25 +42,22 @@ const postEntry = async (newEntry: EntryInterface): Promise<EntryInterface> => {
     const data = await fetch(`${url}/entries/add`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(newEntry),
     })
 
-    console.log({postData: data})
+    console.log({ postData: data })
 
-    if (!data.ok){
+    if (!data.ok) {
       throw new Error(`Request failed with status ${data.status}`)
     }
-    return await data.json();
+    return await data.json()
   } catch (error) {
-    console.error("Error adding diary entry:", error);
-    throw error;
+    console.error('Error adding diary entry:', error)
+    throw error
   }
-
 }
-
-
 
 /*
 router.post('/entries/upload-image', upload.single('image'), uploadImage)
@@ -74,45 +68,24 @@ const uploadImage = async (newEntry): Promise<EntryInterface> => {
   // console.log(newEntry
   try {
     // Assuming newEntry has an 'image' property with the image data
-    const formData = new FormData();
-    
-    formData.append('image', newEntry);
-console.log(formData)
+    const formData = new FormData()
+
+    formData.append('image', newEntry)
+    console.log(formData)
     const uploadData = await fetch(`${url}/entries/upload-image`, {
       method: 'POST',
       body: formData,
-    });
+    })
 
     if (!uploadData.ok) {
-      throw new Error(`Image upload failed with status ${uploadData.status}`);
+      throw new Error(`Image upload failed with status ${uploadData.status}`)
     }
 
-   return await uploadData.json();
-  
-
-    // Assuming your server returns the Cloudinary URL of the uploaded image
-    newEntry.imageUrl = imageData.url;
-
-    const entryResponse = await fetch(`${url}/entries/add`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newEntry),
-    });
-
-    console.log({ postData: entryResponse });
-
-    if (!entryResponse.ok) {
-      throw new Error(`Request failed with status ${entryResponse.status}`);
-    }
-
-    return await entryResponse.json();
+    return await uploadData.json()
   } catch (error) {
-    console.error("Error adding diary entry:", error);
-    throw error;
+    console.error('Error adding diary entry:', error)
+    throw error
   }
-};
+}
 
-
-export { getEntries, deleteEntry, postEntry, uploadImage }
+export { deleteEntry, getEntriesDesc, postEntry, uploadImage }

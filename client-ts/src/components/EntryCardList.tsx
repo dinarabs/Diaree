@@ -1,32 +1,32 @@
-import { FC, useState, useEffect } from 'react'
-import { getEntries, deleteEntry, Entry } from '../services/entriesService'
+import { FC } from 'react'
+import {
+  getEntriesDesc,
+  deleteEntry,
+  EntryInterface,
+} from '../services/entriesService'
 import EntryCard from './EntryCard'
 
-const EntryCardList: FC = () => {
+type EntryCardListProps = {
+  entries: EntryInterface[]
+  setEntries: (entries: EntryInterface[]) => void
+}
 
-  const [entries, setEntries] = useState<Entry[]>([])
-
-  useEffect(() => {
-    const loadEntries = async () => {
-      const data = await getEntries()
-      setEntries(data)
-    }
-
-    loadEntries() 
-  }, [])
-
-
+const EntryCardList: FC<EntryCardListProps> = ({ entries, setEntries }) => {
   const handleDeleteEntry = async (entryId: string) => {
     await deleteEntry(entryId)
-    const updatedEntries = await getEntries()
+    const updatedEntries = await getEntriesDesc()
     setEntries(updatedEntries)
   }
 
-
   return (
     <div className="flex flex-col w-full">
-        {entries.length && entries.map((item) => (
-          <EntryCard key={item._id} diaryEntry={item} onDelete={handleDeleteEntry} />
+      {entries.length &&
+        entries.map((item: EntryInterface) => (
+          <EntryCard
+            key={item._id}
+            diaryEntry={item}
+            onDelete={handleDeleteEntry}
+          />
         ))}
     </div>
   )

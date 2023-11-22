@@ -6,14 +6,11 @@ interface UploadImageProps {
 }
 
 const UploadImage: FC<UploadImageProps> = ({ onFileSelected,  }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     console.log(files)
     if (files && files.length > 0) {
-      console.log(files[0])
-      setSelectedFile(files[0]);
       onFileSelected(files[0]); // Trigger the callback with the selected file
     }
   };

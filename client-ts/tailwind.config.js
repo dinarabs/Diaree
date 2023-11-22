@@ -17,6 +17,7 @@ export default {
         grey: '#9E9C98',
         'light-grey': '#EEEEEE',
         'light-fucsia': '#AD62D1',
+        'dark-fucsia': '#8e3eb2',
         green: '#50C817',
         purple: '#1733C8',
         red: '#C81717',

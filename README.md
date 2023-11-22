@@ -9,3 +9,6 @@ if you want to use the cloudinary image upload, you have to create a cloudinary 
 CLOUDINARY_CLOUD_NAME=xxx
 CLOUDINARY_API_KEY=xxx
 CLOUDINARY_API_SECRET=xxx
+
+### To seed DB with diary entries
+```npm run seedDB```
