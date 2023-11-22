@@ -2,10 +2,9 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { UilTimes } from '@iconscout/react-unicons'
 import { Entry } from '../services/entriesService' // Import the Entry type
-// import Tags from './Tags'
 import moment from 'moment'
 
-interface EntryCardProps {
+type EntryCardProps = {
   key: string
   diaryEntry: Entry
   onDelete: (entryId: string) => void
@@ -28,7 +27,16 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
           <h2 className="text-xl font-bold">{diaryEntry.title}</h2>
         </Link>
         <h5 className="text-sm">{truncatedText}</h5>
-        <div className="my-2">{/* <Tags /> */}</div>
+        <div className="my-2">
+          {diaryEntry.tags.map((tag, index) => (
+            <div
+              key={index}
+              className={`inline-flex flex-wrap w-fit bg-green opacity-75 text-white rounded-full px-2 py-1 text-sm mr-3`}
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col items-end">
@@ -37,7 +45,7 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
           onClick={handleDeleteClick}
           style={{ cursor: 'pointer' }}
         />
-        <h5 className="text-sm pt-4 text-grey">
+        <h5 className="text-sm pt-4 text-grey w-fit">
           {moment.utc(diaryEntry.createdAt).format('MMMM Do, YYYY - h:mm a ')}
         </h5>
       </div>

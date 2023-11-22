@@ -1,6 +1,7 @@
 const url = 'http://localhost:3000'
 
-export interface Tag {
+export type Tag = {
+  _id: string
   name: string
 }
 
