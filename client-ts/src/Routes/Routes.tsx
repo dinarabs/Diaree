@@ -8,16 +8,16 @@ import Entry from '../components/Entry'
 
 const AppRoutes = () => {
   return (
-      <Routes>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/login' element={<Login/>}/>
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
 
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/form' element={<CreateEntryForm/>}/>
-          <Route path='/entry' element={<Entry/>}/>
+      <Route path="/home" element={<Home />} />
+      <Route path="/form" element={<CreateEntryForm />} />
+      <Route path="/entry" element={<Entry />} />
 
-          <Route path='*' element={<NotFound/>}/>
-      </Routes>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 
