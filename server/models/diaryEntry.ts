@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 export interface IDiaryEntry {
-  _id: string
+  // _id: string
   title: string
   text: string
   imageUrl: string
@@ -10,10 +10,10 @@ export interface IDiaryEntry {
 
 const diaryEntrySchema = new Schema<IDiaryEntry>(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
+    // _id: {
+    //   type: String,
+    //   required: true,
+    // },
     title: {
       type: String,
       required: true,
