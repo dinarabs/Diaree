@@ -3,7 +3,10 @@ import Tag from '../models/tag'
 
 async function getAllTags(req: Request, res: Response) {
   try {
-    const tags = await Tag.find()
+    const tags = await Tag.find().limit(5)
+    if (!tags) {
+      return res.status(404).json({ message: 'No tags found' })
+    }
     res.status(200).json(tags)
   } catch (error) {
     console.error('Error fetching tags:', error)
