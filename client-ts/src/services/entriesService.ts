@@ -9,36 +9,31 @@ export interface Entry {
   createdAt: Date
 }
 
-const getEntries = async (): Promise<Entry[]> => {
+const getEntriesDesc = async (): Promise<Entry[]> => {
   try {
-    const data = await fetch(`${url}/entries/asc`)
+    const data = await fetch(`${url}/entries/desc`)
     const res: Entry[] = await data.json()
     return res
   } catch (error) {
-    console.log('Error fetching data from getEntries:', error)
+    console.log('Error fetching data from getEntriesDesc:', error)
     throw error
   }
 }
 
-
 const deleteEntry = async (entryId: string): Promise<void> => {
   try {
     const data = await fetch(`${url}/entries/delete/${entryId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
-    console.log({deleteEntry: data})
+    console.log({ deleteEntry: data })
 
-    if (!data.ok){
+    if (!data.ok) {
       throw new Error(`Request failed with status ${data.status}`)
     }
-    
   } catch (error) {
     console.log('Error fetching data from deleteEntry:', error)
     throw error
   }
 }
 
-
-
-
-export { getEntries, deleteEntry }
+export { getEntriesDesc, deleteEntry }
