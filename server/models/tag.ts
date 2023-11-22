@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 // 1. Create an interface representing a document in MongoDB.
-interface ITag {
+export interface ITag {
   name: string
 }
 
