@@ -20,9 +20,10 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
     diaryEntry.text.length > 25
       ? `${diaryEntry.text.substring(0, 25)}...`
       : diaryEntry.text
-
+console.log(diaryEntry.imageUrl)
   return (
     <div className="flex items-start justify-between shadow-md w-full mx-0 my-4 h-32 p-4 border-2 border-light-grey rounded-lg">
+     <img src={diaryEntry.imageUrl} alt="" />
       <div className="flex-shrink-0 flex flex-col">
         <Link to="/entry" className="no-underline hover:underline ">
           <h2 className="text-xl font-bold">{diaryEntry.title}</h2>

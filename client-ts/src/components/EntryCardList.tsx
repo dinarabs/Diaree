@@ -25,7 +25,7 @@ const EntryCardList: FC = () => {
 
   return (
     <div className="flex flex-col w-full">
-        {entries.map((item) => (
+        {entries.length && entries.map((item) => (
           <EntryCard key={item._id} diaryEntry={item} onDelete={handleDeleteEntry} />
         ))}
     </div>
