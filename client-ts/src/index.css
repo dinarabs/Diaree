@@ -8,7 +8,7 @@
 }
 
 .button-effect:hover {
-  background-color: #178bc8; /* Adjust color as needed */
+  background-color: #178bc8;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 

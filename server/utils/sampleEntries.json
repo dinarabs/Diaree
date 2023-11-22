@@ -1,0 +1,114 @@
+[
+	{
+		"title": "My Second Diary Entry: A New Beginning",
+		"text": "Dear Diary, today marks my second entry. I've decided to start a new hobby - gardening! It's amazing how nurturing plants can bring so much joy. Can't wait to see them bloom.",
+		"tags": [
+			"gardening",
+			"hobbies",
+			"personal growth"
+		],
+		"createdAt": "2023-11-22T16:37:22.208Z",
+		"updatedAt": "2023-11-22T16:37:22.208Z",
+		"__v": 0
+	},
+	{
+		"title": "My Third Entry: Reflecting on the Day",
+		"text": "Dear Diary, it's my third time writing here. I spent the day reflecting on my goals and aspirations. I'm more determined than ever to work towards them. Also, I tried a new recipe today, and it turned out great!",
+		"tags": [
+			"reflection",
+			"goals",
+			"cooking"
+		],
+		"createdAt": "2023-11-22T16:37:22.208Z",
+		"updatedAt": "2023-11-22T16:37:22.208Z",
+		"__v": 0
+	},
+	{
+		"title": "A New Beginning",
+		"text": "Dear Diary, today marks the start of my new journey.",
+		"tags": [
+			"motivation",
+			"new_beginnings"
+		],
+		"createdAt": "2023-11-21T10:30:00.000Z",
+		"updatedAt": "2023-11-21T10:30:00.000Z",
+		"__v": 0
+	},
+	{
+		"title": "A Day to Remember",
+		"text": "What an amazing day! So much learned, so much seen.",
+		"tags": [
+			"memorable_day",
+			"adventures"
+		],
+		"createdAt": "2023-11-20T15:45:30.000Z",
+		"updatedAt": "2023-11-20T15:45:30.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Quiet Reflections",
+		"text": "Today was a day for quiet thought and reflection.",
+		"tags": [
+			"reflection",
+			"peace"
+		],
+		"createdAt": "2023-11-19T09:20:45.000Z",
+		"updatedAt": "2023-11-19T09:20:45.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Learning and Growing",
+		"text": "Each day is a step towards growth and knowledge.",
+		"tags": [
+			"learning",
+			"personal_growth"
+		],
+		"createdAt": "2023-11-18T14:10:05.000Z",
+		"updatedAt": "2023-11-18T14:10:05.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Overcoming Challenges",
+		"text": "Faced a big challenge today, but I overcame it.",
+		"tags": [
+			"challenge",
+			"resilience"
+		],
+		"createdAt": "2023-11-17T17:55:12.000Z",
+		"updatedAt": "2023-11-17T17:55:12.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Joyful Moments",
+		"text": "Today was filled with laughter and joy.",
+		"tags": [
+			"joy",
+			"happiness"
+		],
+		"createdAt": "2023-11-16T12:40:22.000Z",
+		"updatedAt": "2023-11-16T12:40:22.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Unexpected Surprises",
+		"text": "Life always has its surprises, today was full of them.",
+		"tags": [
+			"surprise",
+			"unexpected"
+		],
+		"createdAt": "2023-11-15T11:35:08.000Z",
+		"updatedAt": "2023-11-15T11:35:08.000Z",
+		"__v": 0
+	},
+	{
+		"title": "Dreams and Aspirations",
+		"text": "I spent some time dreaming about the future today.",
+		"tags": [
+			"dreams",
+			"aspirations"
+		],
+		"createdAt": "2023-11-14T08:25:50.000Z",
+		"updatedAt": "2023-11-14T08:25:50.000Z",
+		"__v": 0
+	}
+]
