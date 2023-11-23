@@ -97,7 +97,7 @@ async function getDiaryEntriesByDate(req: Request, res: Response) {
 async function addDiaryEntry(req: Request, res: Response) {
   try {
     const { title, text, imageUrl, tags } = req.body
-
+    console.log(imageUrl)
     const diaryEntryToAdd = await DiaryEntry.create({
       title,
       text,
@@ -118,6 +118,7 @@ async function uploadImage(req: Request, res: Response) {
     console.log('Received image upload request')
 
     console.log(req.file)
+    
     if (!req.file) {
       return res.status(400).json({ error: 'No image uploaded' })
     }

@@ -1,6 +1,22 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
-const UploadImage: FC = () => {
+
+interface UploadImageProps {
+  onFileSelected: (file: File) => void;
+}
+
+const UploadImage: FC<UploadImageProps> = ({ onFileSelected,  }) => {
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    console.log(files)
+    if (files && files.length > 0) {
+      onFileSelected(files[0]); // Trigger the callback with the selected file
+    }
+  };
+
+
+
   return (
     <div className="col-span-full">
       <label
@@ -34,6 +50,7 @@ const UploadImage: FC = () => {
                 name="file-upload"
                 type="file"
                 className="sr-only"
+                onChange={handleFileChange}
               />
             </label>
             <p className="pl-1">or drag and drop</p>

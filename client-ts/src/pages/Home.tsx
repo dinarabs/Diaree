@@ -3,13 +3,13 @@ import Controls from '../components/Controls'
 import EntryCardList from '../components/EntryCardList'
 import TagList from '../components/TagList'
 import { Tag, getTags } from '../services/tagService'
-import { getEntriesDesc, Entry } from '../services/entriesService'
+import { getEntriesDesc, EntryInterface } from '../services/entriesService'
 
 const Home: FC = () => {
   const [tagList, setTagList] = useState<Tag[]>([])
-  const [entries, setEntries] = useState<Entry[]>([])
+  const [entries, setEntries] = useState<EntryInterface[]>([])
   const [selectedTag, setSelectedTag] = useState<string>('')
-  const [filteredEntries, setFilteredEntries] = useState<Entry[]>([])
+  const [filteredEntries, setFilteredEntries] = useState<EntryInterface[]>([])
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -33,7 +33,7 @@ const Home: FC = () => {
   useEffect(() => {
     const filterEntries = () => {
       if (selectedTag) {
-        const filteredData = entries.filter((entry: Entry) =>
+        const filteredData = entries.filter((entry: EntryInterface) =>
           entry.tags.includes(selectedTag)
         )
         setFilteredEntries(filteredData)

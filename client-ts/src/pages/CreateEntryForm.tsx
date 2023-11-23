@@ -1,27 +1,83 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import {
+  EntryInterface,
+  postEntry,
+  uploadImage,
+} from '../services/entriesService'
 // import TagsInput from 'react-tagsinput';
-import UploadImage from '../components/UploadImage';
+import UploadImage from '../components/UploadImage'
 
 const EntryForm = () => {
+  const navigate = useNavigate() // Initialize the usenavigate hook
+  const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [newEntryBla, setNewEntryBla] = useState<EntryInterface>({
+    _id: '',
+    title: '',
+    text: '',
+    imageUrl: 'something',
+    tags: [],
+    createdAt: new Date(),
+  })
+  const [textAreaRows, setTextAreaRows] = useState<number>(5)
 
-  // const [tags, setTags] = useState<string[]>([]);
-  const [textAreaRows, setTextAreaRows] = useState<number>(5); // Set an initial value for rows
+  const handleFileSelected = async (file: File) => {
+    setIsUploading(true)
 
-  // const handleTagsChange = (tags: string[]) => {
-  //   setTags(tags);
-  // };
+    await uploadImage(file)
+      .then((data) => {
+        console.log(data, 'I am here with DATA')
+        console.log(data)
 
-  const handleTextAreaChange = () => {
-    // You can adjust the logic for dynamically setting rows based on content if needed
-    setTextAreaRows(5); // Set a fixed number or adjust based on content
-  };
+        setNewEntryBla((prevData) => ({
+          ...prevData,
+          imageUrl: data.imageUrl,
+        }))
+      })
+      .finally(() => setIsUploading(false))
+  }
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target
+    setNewEntryBla((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+    console.log(name)
+  }
+
+  const handleTextAreaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target
+    setNewEntryBla((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+    setTextAreaRows(5)
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const response = await postEntry(newEntryBla)
+    console.log('Entry added successfully:', response)
+
+    // Redirect to the home page after adding the entry
+    navigate('/home')
+    // } catch (error) {
+    //   console.error('Error adding diary entry:', error)
+    //   // Handle errors, show a message, or perform other actions
+    // }
+  }
 
   return (
     <>
       <div className="flex flex-col justify-start shadow-md w-2/4 my-8 h-max p-8 border-2 border-light-grey rounded-lg">
         <h2 className="font-semibold text-4xl">Create new entry</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <p className="mt-1 text-md leading-6 text-gray-600">
@@ -30,10 +86,9 @@ const EntryForm = () => {
               </p>
 
               <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <UploadImage />
-
                 <div className="col-span-full">
                   <label
+                    id="title"
                     htmlFor="title"
                     className="block text-md font-medium leadin-6 text-gray-900"
                   >
@@ -42,7 +97,9 @@ const EntryForm = () => {
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-grey sm:max-w-full">
                       <input
-                        type="text"
+                        type="title"
+                        name="title"
+                        onChange={handleInputChange}
                         className="h-12 block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -51,6 +108,7 @@ const EntryForm = () => {
 
                 <div className="col-span-full">
                   <label
+                    id="text"
                     htmlFor="text"
                     className="block text-md font-medium leading-6 text-gray-900"
                   >
@@ -70,25 +128,26 @@ const EntryForm = () => {
                 {/* TODO: add TagsInput section - There is a separate component for it but it's still incomplete */}
                 <div className="col-span-full">
                   <label
+                    id="tags"
                     htmlFor="tags"
                     className="block text-md font-medium leading-6 text-gray-900"
                   >
                     Tags
                   </label>
                 </div>
+                <UploadImage onFileSelected={handleFileSelected} />
               </div>
             </div>
           </div>
 
           <div className="mt-4 flex items-center justify-center gap-x-2">
-            <Link to="/form">
-              <button
-                type="submit"
-                className="px-16 bg-blue shadow-md rounded h-12 text-xl text-center text-white"
-              >
-                Edit
-              </button>
-            </Link>
+            <button
+              disabled={isUploading}
+              type="submit"
+              className="px-16 bg-blue shadow-md rounded h-12 text-xl text-center text-white"
+            >
+              Save
+            </button>
             <Link to="/home">
               <button
                 type="button"
@@ -102,6 +161,6 @@ const EntryForm = () => {
       </div>
     </>
   )
-};
+}
 
-export default EntryForm;
+export default EntryForm
