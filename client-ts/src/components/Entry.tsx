@@ -1,42 +1,47 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import image from '../assets/photo-1.jpg'
-// import TagList from './TagList'
+import { useLocation } from 'react-router-dom'
+import { EntryInterface } from '../services/entriesService'
 
-const Entry: FC = () => {
+type EntryProps = {
+  diaryEntry: EntryInterface
+}
+
+const Entry: FC<EntryProps> = () => {
+  const location = useLocation() // Use useLocation hook to get the current location
+  const diaryEntry = location.state && location.state.diaryEntry // Retrieve the diaryEntry object from the state
+
+  if (!diaryEntry) {
+    return <div>Loading...</div> // Handle the case where diaryEntry is not available
+  }
+
   return (
     <div className="flex flex-col justify-start shadow-md w-2/4 my-8 h-max p-8 border-2 border-light-grey rounded-lg gap-6">
       <img
-        src={image}
-        alt="Picture of Individuals Parachute Jumping"
-        className="object-cover rounded"
+        src={diaryEntry.imageUrl}
+        alt="No image upload"
+        className="h-52 object-cover rounded"
       />
-      <h1 className="text-4xl font-semibold ">Entry Title</h1>
-      <p className="text-xl mb-12 text-justify">
-        Entry Text Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Aliquam fermentum justo mi, in consectetur dolor maximus sit amet. Duis
-        viverra purus a dolor volutpat rhoncus. Vivamus id purus varius, semper
-        nisl nec, fermentum erat. Sed placerat, turpis ac vehicula tincidunt,
-        metus velit euismod nibh, id euismod mi magna et mauris. Nunc elementum
-        quam et sollicitudin semper. Maecenas pulvinar viverra tristique. Etiam
-        eu enim erat. Nulla tempor quam massa, id maximus ex ultricies
-        consectetur. Aliquam ligula sem, congue quis sodales sit amet, tincidunt
-        sodales ipsum. Morbi sollicitudin at leo ut fringilla. Duis tempor augue
-        vel fermentum accumsan. Quisque tristique massa id lacus egestas, ac
-        volutpat turpis viverra. Nullam molestie nisi eu neque blandit, eu
-        euismod lorem placerat. Phasellus vel quam non urna suscipit interdum id
-        at urna. Nullam vestibulum turpis sit amet mollis consectetur. In
-        interdum dolor libero, sed laoreet arcu euismod eget.
-      </p>
-      {/* TODO add taglist */}
-      {/* <TagList /> */}
+      <h1 className="text-xl font-semibold ">{diaryEntry.title}</h1>
+      <p className="text-sm mb-6 text-justify">{diaryEntry.text}</p>
+
+      <div className="my-2">
+        {diaryEntry.tags.map((tag: string, index: number) => (
+          <div
+            key={index}
+            className={`inline-flex flex-wrap w-fit bg-green opacity-75 text-white rounded-full px-2 py-1 text-sm mr-3`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
 
       <div className="border-b border-gray-900/10 pb-4"></div>
       <div className="mt-4 flex items-center justify-center gap-x-2">
         <Link to="/form">
           <button
             type="submit"
-            className="px-16 bg-blue shadow-md rounded h-12 text-xl text-center text-white"
+            className="px-16 bg-blue shadow-md rounded h-12 text-md text-center text-white"
           >
             Edit
           </button>
@@ -44,7 +49,7 @@ const Entry: FC = () => {
         <Link to="/home">
           <button
             type="button"
-            className="px-12 bg-light-grey shadow-md rounded h-12 text-xl leading-6 text-gray-900"
+            className="px-12 bg-light-grey shadow-md rounded h-12 text-md leading-6 text-gray-900"
           >
             Cancel
           </button>

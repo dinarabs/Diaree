@@ -9,7 +9,7 @@ const Controls: FC = () => {
         className="w-3/12 bg-blue rounded h-12 text-center text-white"
         to="/form"
       >
-        <button className="h-12 text-xl">+ Add</button>
+        <button className="h-12 text-md">+ Add</button>
       </Link>
       <div className="flex items-center justify-start bg-light-grey text-xl font-light px-4 h-12 w-6/12 rounded-full shadow-sm focus-within:ring-2 focus-within:ring-inset focus-within:ring-grey capitalize placeholder:lowercase">
         <UilSearch size={28} className="text-grey" />
@@ -18,7 +18,7 @@ const Controls: FC = () => {
           // onChange={(e) => setCityName(e.currentTarget.value)}
           type="text"
           placeholder="Search for an entry..."
-          className="bg-light-grey text-xl font-light px-4 h-10 w-full rounded-full shadow-sm focus:outline-none capitalize placeholder:lowercase"
+          className="bg-light-grey text-md font-light px-4 h-10 w-full rounded-full focus:outline-none capitalize placeholder:lowercase"
         />
       </div>
       {/* TODO: add Button functionality to the icons  */}
