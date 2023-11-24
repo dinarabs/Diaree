@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
 import { UilTimes } from '@iconscout/react-unicons'
 import { EntryInterface } from '../services/entriesService' // Import the Entry type
+import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 
 type EntryCardProps = {
@@ -19,6 +19,12 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
     diaryEntry.text.length > 25
       ? `${diaryEntry.text.substring(0, 25)}...`
       : diaryEntry.text
+
+  
+  const navigate = useNavigate()
+  function handleClick() {
+    navigate("/entry", { state: { diaryEntry } });
+  }
       
 
   return (
@@ -27,9 +33,11 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
       <div className='flex justify-between w-full'>
 
         <div className="p-2">
-          <Link to="/entry" className="no-underline hover:underline ">
-            <h2 className="text-xl font-bold">{diaryEntry.title}</h2>
-          </Link>
+          <h2 
+          onClick={handleClick} 
+          className="text-xl font-bold no-underline hover:underline cursor-pointer"
+          >
+            {diaryEntry.title}</h2>
           <h5 className="text-sm">{truncatedText}</h5>
           <div className="my-2">
             {diaryEntry.tags.map((tag, index) => (
