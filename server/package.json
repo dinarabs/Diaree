@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "nodemon --exec ts-node index.ts",
     "lint": "eslint . --ext .ts",
-    "seedDB": "ts-node seedDiaryEntriesDB.ts"
+    "seedDB": "cd utils && ts-node seedDiaryEntriesDB.ts"
   },
   "keywords": [],
   "author": "",
