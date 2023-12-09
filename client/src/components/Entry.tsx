@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { EntryInterface } from '../services/entriesService'
+import { defaultImage } from '../utils/randomDefaultImage'
 
 type EntryProps = {
   diaryEntry: EntryInterface
@@ -15,10 +16,11 @@ const Entry: FC<EntryProps> = () => {
     return <div>Loading...</div> // Handle the case where diaryEntry is not available
   }
 
+
   return (
     <div className="flex flex-col justify-start shadow-md w-2/4 my-8 h-max p-8 border-2 border-light-grey rounded-lg gap-6">
       <img
-        src={diaryEntry.imageUrl}
+        src={diaryEntry.imageUrl || defaultImage }
         alt="No image upload"
         className="h-52 object-cover rounded"
       />

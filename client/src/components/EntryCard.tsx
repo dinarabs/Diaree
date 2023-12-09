@@ -3,6 +3,7 @@ import { UilTimes } from '@iconscout/react-unicons'
 import { EntryInterface } from '../services/entriesService' // Import the Entry type
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
+import { defaultImage } from '../utils/randomDefaultImage'
 
 type EntryCardProps = {
   key: string
@@ -25,11 +26,11 @@ const EntryCard: FC<EntryCardProps> = ({ diaryEntry, onDelete }) => {
   function handleClick() {
     navigate("/entry", { state: { diaryEntry } });
   }
-      
+
 
   return (
     <div className="flex w-full rounded overflow-hidden shadow-md border-light-grey my-4">
-      <img src={diaryEntry.imageUrl} alt="Image of the diary entry" className='h-32 w-32 object-fill scale-100 mr-4'/>
+      <img src={diaryEntry.imageUrl || defaultImage} alt="Image of the diary entry" className='h-32 w-32 object-fill scale-100 mr-4'/>
       <div className='flex justify-between w-full'>
 
         <div className="p-2">
