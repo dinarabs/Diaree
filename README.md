@@ -30,7 +30,7 @@ To launch the entire application, use two separate console views and run the fol
 
 ```ts
   // for the server
-  nodemon index.ts
+  npm start
 
   // for the client
   npm run dev
@@ -59,7 +59,7 @@ The app's development involved the following technology stack:
 
 - The application is exclusively coded in *TypeScript*.
 - **Backend Technologies:** *Node.js* in conjunction with *Express*, and *MongoDB with Moongoose* for the databases.
-- **Frontend Technologies:** *React.js* paired with *TailwindCSS*.
+- **Frontend Technologies:** *React* paired with *TailwindCSS*.
 - Furthermore, the backend boasts comprehensive test coverage facilitated by *Jest*, *Supertest*, and *Mockingoose* libraries.
 
 # 📚 Contributors
