@@ -39,8 +39,14 @@ To launch the entire application, use two separate console views and run the fol
 
 Additionally, you can use the following command to add preconfigured diary entries to your database: 
 ```ts
-// run this in your server's console
+// go to server/utils folder
+cd utils
+
+// run this command in your server's console
 npm run seedDB
+
+// you can also do the 2 steps before in just one line
+cd utils && npm run seedDB
 ```
 
 And last but not least, make sure you have an account in [Cloudinary](https://cloudinary.com/) to be able to upload images and use this app. Once you have an account, create and `.env` file in the server where to store the following information:
@@ -50,7 +56,7 @@ CLOUDINARY_CLOUD_NAME=xxx
 CLOUDINARY_API_KEY=xxx
 CLOUDINARY_API_SECRET=xxx
 ```
-IMPORTANT: Once you have created this .env file, please be careful and DO NOT publish anywhere.
+IMPORTANT: Once you have created this `.env` file, please be careful and DO NOT publish anywhere.
 
 
 
