@@ -70,7 +70,7 @@ The app's development involved the following technology stack:
 
 # 📚 Contributors
 
-This application represents a legacy project that underwent enhancements led by [Dinara Bekeshova](https://github.com/dinarabs) and [Pilar Cuéllar Taracido](https://github.com/PilySwatch), focusing on refining its visual aesthetics and transitioning the entire codebase to TypeScript. The initial iteration of the application was authored by [Oguz Tugan](https://github.com/dayt47), and the original source code is accessible in this repository: https://github.com/dayt47/Diaree 
+This application represents a legacy project that underwent enhancements led by [Dinara Bekeshova](https://github.com/dinarabs) and [Pilar Cuéllar Taracido](https://github.com/pilyct), focusing on refining its visual aesthetics and transitioning the entire codebase to TypeScript. The initial iteration of the application was authored by [Oguz Tugan](https://github.com/dayt47), and the original source code is accessible in this repository: https://github.com/dayt47/Diaree 
 
-| <a href="https://github.com/dinarabs"><img src="https://github.com/dinarabs.png?size=100" alt="dinarabs" style="border-radius:50%;" /><br>dinarabs</a> | <a href="https://github.com/PilySwatch"><img src="https://github.com/PilySwatch.png?size=100" alt="PilySwatch" style="border-radius:50%;" /><br>PilySwatch</a> | 
+| <a href="https://github.com/dinarabs"><img src="https://github.com/dinarabs.png?size=100" alt="dinarabs" style="border-radius:50%;" /><br>dinarabs</a> | <a href="https://github.com/pilyct"><img src="https://github.com/pilyct.png?size=100" alt="pilyct" style="border-radius:50%;" /><br>pilyct</a> | 
 |:---:|:---:|
